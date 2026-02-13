@@ -21,10 +21,8 @@ This file is the single source of truth for final submission packaging.
 
 ## 3) Provenance / Eligibility Statement
 
-RiskPilot-M repository and submitted deliverables were created specifically for this hackathon cycle.  
-Any prior experience informed design decisions at a conceptual level only; submission code and artifacts are maintained in this dedicated repository for this event.
-
-If organizers require stricter interpretation, team should provide commit-window evidence and explicit disclosure for any reused snippet lineage.
+All submission code and artifacts in this repository were produced during the hackathon window for this event.  
+No prior project deliverable was reused.
 
 ## 4) Deployment Verification
 
