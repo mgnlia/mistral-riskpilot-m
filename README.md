@@ -56,6 +56,12 @@ If CLI is unavailable in your runtime, use:
 - Submission artifact tracker: `docs/SUBMISSION_ARTIFACT_STATUS.md`
 - Submission writeup draft: `docs/SUBMISSION_WRITEUP_DRAFT.md`
 - Deploy verification script: `scripts/verify-deploy.mjs`
+- Post-deploy verification checklist: `docs/POST_DEPLOY_VERIFICATION_CHECKLIST.md`
+
+Run deployment verification:
+```bash
+npm run verify:deploy -- https://mistral-riskpilot-m.vercel.app
+```
 
 ## Hackathon Deliverables Checklist
 - [x] Implementation repo created
