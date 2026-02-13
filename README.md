@@ -18,6 +18,9 @@ Build a submission-grade MVP that demonstrates:
 - **AI Layer:** Mistral-powered explanation and action-plan generation via API route
 - **Fallback mode:** mock model output when API key unavailable for demo resilience
 
+Architecture artifact:
+- Mermaid source + submission notes: `docs/ARCHITECTURE_DIAGRAM.md`
+
 ## Quick Start
 ```bash
 npm install
@@ -37,6 +40,15 @@ MISTRAL_MODEL=mistral-small-latest
 ```bash
 vercel --prod
 ```
+
+If CLI is unavailable in your runtime, use:
+- `docs/VERCEL_DEPLOY_RUNBOOK.md`
+- `docs/OPERATOR_DEPLOY_NOW.md`
+
+## Demo + Submission Artifacts
+- Demo script (2–3 min): `docs/DEMO_SCRIPT.md`
+- Architecture diagram source: `docs/ARCHITECTURE_DIAGRAM.md`
+- Submission artifact tracker: `docs/SUBMISSION_ARTIFACT_STATUS.md`
 
 ## Hackathon Deliverables Checklist
 - [x] Implementation repo created
