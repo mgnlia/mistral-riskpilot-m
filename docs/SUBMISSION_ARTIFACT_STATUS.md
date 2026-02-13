@@ -14,6 +14,8 @@ Task: `lL5ZwDIS-lRhbP1SDoJLO`
 | Submission writeup (200–400 words) | ✅ Draft done | `docs/SUBMISSION_WRITEUP_DRAFT.md` | Needs final polish only |
 | Demo video (2–3 min, unlisted) | 🟡 Pending | (to record) | Script ready |
 | Live Vercel URL | 🔴 Blocked | `docs/HUMAN_OP_DEPLOY_REQUEST.md` | Blocked by missing `vercel` CLI in runtime |
+| Post-deploy verification checklist | ✅ Done | `docs/POST_DEPLOY_VERIFICATION_CHECKLIST.md` | Includes health and API gates |
+| Automated verification script | ✅ Done | `scripts/verify-deploy.mjs` | Includes `/api/health` + `/api/analyze` checks |
 
 ## Engineering MVP Readiness
 - Core product flow: **✅ Feature-complete**

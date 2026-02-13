@@ -36,13 +36,15 @@ npx vercel env add MISTRAL_MODEL production --token "$VERCEL_TOKEN"  # value: mi
 npx vercel --prod --token "$VERCEL_TOKEN"
 ```
 
-## Verification script (copy/paste)
+## Verification commands (copy/paste)
 
 ```bash
-node scripts/verify-deploy.mjs https://mistral-riskpilot-m.vercel.app
+curl -fsSL https://mistral-riskpilot-m.vercel.app/api/health | jq
+npm run verify:deploy -- https://mistral-riskpilot-m.vercel.app
 ```
 
 Expected result:
+- `/api/health` reports `ok=true`, `service=riskpilot-m`
 - Home page check passes
 - `/api/analyze` returns keys: `assessment`, `plan`, `assumptions`
 - `plan.mode` is either:
@@ -52,3 +54,4 @@ Expected result:
 ## Final expected public URL
 - `https://mistral-riskpilot-m.vercel.app`
 - API endpoint: `https://mistral-riskpilot-m.vercel.app/api/analyze`
+- Health endpoint: `https://mistral-riskpilot-m.vercel.app/api/health`

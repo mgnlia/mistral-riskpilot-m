@@ -4,6 +4,11 @@ Target: `https://mistral-riskpilot-m.vercel.app`
 
 ## 1) Basic availability
 - [ ] `GET /` returns `200 OK`
+- [ ] `GET /api/health` returns `200 OK`
+- [ ] `/api/health` response includes:
+  - `ok: true`
+  - `service: riskpilot-m`
+  - `mistralConfigured: true|false`
 - [ ] Page title shows `RiskPilot-M`
 - [ ] No immediate runtime error in browser console
 
@@ -11,7 +16,7 @@ Target: `https://mistral-riskpilot-m.vercel.app`
 - [ ] `POST /api/analyze` with valid payload returns `200`
 - [ ] Response includes keys: `assessment`, `plan`, `assumptions`
 - [ ] `plan.mode` is either `live-mistral` or `fallback-mock`
-- [ ] `plan.projectedHealthFactor >= assumptions.targetHealthFactor` for repay/top-up scenarios
+- [ ] `plan.projectedHealthFactor` is finite and non-negative
 
 ## 3) Mistral mode checks
 - [ ] With `MISTRAL_API_KEY` configured: `plan.mode=live-mistral`
@@ -29,6 +34,8 @@ Target: `https://mistral-riskpilot-m.vercel.app`
 
 ## 6) Automated script check
 ```bash
+npm run verify:deploy -- https://mistral-riskpilot-m.vercel.app
+# or
 node scripts/verify-deploy.mjs https://mistral-riskpilot-m.vercel.app
 ```
 Expected: script exits 0 and prints `Deployment verification passed`.

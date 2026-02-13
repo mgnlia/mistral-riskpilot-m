@@ -49,6 +49,15 @@ If CLI is unavailable in your runtime, use:
 - `docs/HUMAN_OP_DEPLOY_REQUEST.md`
 - `docs/OPERATOR_HANDOFF_COPYPASTE.md`
 
+## Health + Verification
+- Health endpoint: `/api/health`
+- Analyze endpoint: `/api/analyze`
+
+Run deployment verification:
+```bash
+npm run verify:deploy -- https://mistral-riskpilot-m.vercel.app
+```
+
 ## Demo + Submission Artifacts
 - Demo script (2–3 min): `docs/DEMO_SCRIPT.md`
 - Explicit MVP checkpoint: `docs/MVP_STATUS_CHECKPOINT.md`
@@ -57,11 +66,6 @@ If CLI is unavailable in your runtime, use:
 - Submission writeup draft: `docs/SUBMISSION_WRITEUP_DRAFT.md`
 - Deploy verification script: `scripts/verify-deploy.mjs`
 - Post-deploy verification checklist: `docs/POST_DEPLOY_VERIFICATION_CHECKLIST.md`
-
-Run deployment verification:
-```bash
-npm run verify:deploy -- https://mistral-riskpilot-m.vercel.app
-```
 
 ## Hackathon Deliverables Checklist
 - [x] Implementation repo created

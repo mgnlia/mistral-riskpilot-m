@@ -18,14 +18,44 @@ function pass(message) {
   console.log(`✅ ${message}`);
 }
 
+async function getJson(url) {
+  const response = await fetch(url, { method: "GET", redirect: "follow" });
+  const text = await response.text();
+  let data = null;
+
+  try {
+    data = JSON.parse(text);
+  } catch {
+    // Non-JSON bodies are acceptable for non-API checks.
+  }
+
+  return { response, text, data };
+}
+
 async function checkHome() {
-  const response = await fetch(baseUrl, { method: "GET", redirect: "follow" });
+  const { response, text } = await getJson(baseUrl);
   if (!response.ok) {
-    const text = await response.text().catch(() => "<no body>");
     fail(`GET ${baseUrl} failed with status ${response.status}`, text.slice(0, 300));
   }
 
   pass(`Home page reachable (${response.status})`);
+}
+
+async function checkHealthApi() {
+  const { response, text, data } = await getJson(`${baseUrl}/api/health`);
+
+  if (!response.ok) {
+    fail(`GET ${baseUrl}/api/health failed with status ${response.status}`, text.slice(0, 300));
+  }
+
+  if (!data || data.ok !== true || data.service !== "riskpilot-m") {
+    fail("/api/health response invalid", JSON.stringify(data ?? text, null, 2));
+  }
+
+  pass(`/api/health reachable (${response.status})`);
+  pass(`mistralConfigured=${Boolean(data.mistralConfigured)}`);
+
+  return data;
 }
 
 async function checkAnalyzeApi() {
@@ -73,22 +103,36 @@ async function checkAnalyzeApi() {
   pass(`/api/analyze reachable (${response.status}) with required keys`);
   pass(`plan.mode=${mode}`);
 
-  console.log("\nSummary:");
-  console.log(JSON.stringify({
-    baseUrl,
+  return {
+    mode,
     riskBand: data.assessment?.riskBand,
     healthFactor: data.assessment?.healthFactor,
     projectedHealthFactor: data.plan?.projectedHealthFactor,
-    projectedRiskBand: data.plan?.projectedRiskBand,
-    mode
-  }, null, 2));
+    projectedRiskBand: data.plan?.projectedRiskBand
+  };
 }
 
 (async () => {
   try {
     console.log(`Running deploy checks for: ${baseUrl}`);
     await checkHome();
-    await checkAnalyzeApi();
+    const health = await checkHealthApi();
+    const analysis = await checkAnalyzeApi();
+
+    console.log("\nSummary:");
+    console.log(
+      JSON.stringify(
+        {
+          baseUrl,
+          model: health.model,
+          mistralConfigured: health.mistralConfigured,
+          ...analysis
+        },
+        null,
+        2
+      )
+    );
+
     console.log("\n🎉 Deployment verification passed.");
   } catch (error) {
     fail("Unexpected verification error", error instanceof Error ? error.message : String(error));
