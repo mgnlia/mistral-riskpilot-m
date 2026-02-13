@@ -1,13 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { assessPosition } from "@/lib/risk";
+import { assessPosition, normalizeMarketShockPct, normalizeTargetHealthFactor } from "@/lib/risk";
 import { samplePositions } from "@/lib/sample-data";
 import type { MitigationPlan, PositionAssessment } from "@/lib/types";
 
-interface AnalysisState {
+interface AnalyzeResponse {
   assessment: PositionAssessment;
   plan: MitigationPlan;
+  assumptions: {
+    marketShockPct: number;
+    targetHealthFactor: number;
+    penaltyModel: string;
+  };
 }
 
 const riskColor: Record<PositionAssessment["riskBand"], string> = {
@@ -20,10 +25,12 @@ const riskColor: Record<PositionAssessment["riskBand"], string> = {
 export default function Page() {
   const initial = useMemo(() => samplePositions.map((p) => assessPosition(p)), []);
   const [selected, setSelected] = useState<PositionAssessment>(initial[0]);
-  const [analysis, setAnalysis] = useState<AnalysisState | null>(null);
+  const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [approved, setApproved] = useState(false);
+  const [marketShockPct, setMarketShockPct] = useState(8);
+  const [targetHealthFactor, setTargetHealthFactor] = useState(1.45);
 
   const runAnalysis = async () => {
     setLoading(true);
@@ -34,19 +41,20 @@ export default function Page() {
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(selected)
+        body: JSON.stringify({
+          input: selected,
+          marketShockPct,
+          targetHealthFactor
+        })
       });
 
-      const payload = (await response.json()) as AnalysisState & { error?: string };
+      const payload = (await response.json()) as AnalyzeResponse & { error?: string };
 
       if (!response.ok) {
         throw new Error(payload.error || "Failed to analyze position");
       }
 
-      setAnalysis({
-        assessment: payload.assessment,
-        plan: payload.plan
-      });
+      setAnalysis(payload);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
       setAnalysis(null);
@@ -71,7 +79,11 @@ export default function Page() {
                 type="button"
                 key={`${position.protocol}-${position.debtUsd}`}
                 className={`position-btn ${selected.protocol === position.protocol ? "active" : ""}`}
-                onClick={() => setSelected(position)}
+                onClick={() => {
+                  setSelected(position);
+                  setAnalysis(null);
+                  setApproved(false);
+                }}
               >
                 <div>
                   <strong>{position.protocol}</strong>
@@ -86,7 +98,33 @@ export default function Page() {
             <Metric label="Collateral" value={`$${selected.collateralUsd.toLocaleString()}`} />
             <Metric label="Debt" value={`$${selected.debtUsd.toLocaleString()}`} />
             <Metric label="Health Factor" value={selected.healthFactor.toFixed(2)} />
-            <Metric label="Distance to Liquidation" value={`$${selected.distanceToLiquidationUsd.toLocaleString()}`} />
+            <Metric label="Risk Score" value={`${selected.riskScore}/100`} />
+          </div>
+
+          <div className="control-grid">
+            <label className="field">
+              <span>Stress Shock (%)</span>
+              <input
+                type="number"
+                min={0}
+                max={60}
+                step={1}
+                value={marketShockPct}
+                onChange={(e) => setMarketShockPct(normalizeMarketShockPct(Number(e.target.value)))}
+              />
+            </label>
+
+            <label className="field">
+              <span>Target HF</span>
+              <input
+                type="number"
+                min={1.05}
+                max={2.5}
+                step={0.05}
+                value={targetHealthFactor}
+                onChange={(e) => setTargetHealthFactor(normalizeTargetHealthFactor(Number(e.target.value)))}
+              />
+            </label>
           </div>
 
           <button type="button" className="primary" onClick={runAnalysis} disabled={loading}>
@@ -106,16 +144,37 @@ export default function Page() {
                 <strong>Summary:</strong> {analysis.plan.summary}
               </p>
               <p>
-                <strong>Inference Mode:</strong> {analysis.plan.mode}
+                <strong>Rationale:</strong> {analysis.plan.rationale}
               </p>
-              <p>
-                <strong>Confidence:</strong> {analysis.plan.confidence}
-              </p>
+              <div className="metrics plan-metrics">
+                <Metric label="Inference Mode" value={analysis.plan.mode} />
+                <Metric label="Confidence" value={analysis.plan.confidence} />
+                <Metric label="Primary Action" value={analysis.plan.primaryAction} />
+                <Metric label="Projected HF" value={analysis.plan.projectedHealthFactor.toFixed(2)} />
+                <Metric label="Debt Repay" value={`$${analysis.plan.suggestedDebtRepayUsd.toLocaleString()}`} />
+                <Metric
+                  label="Collateral Top-up"
+                  value={`$${analysis.plan.suggestedCollateralTopUpUsd.toLocaleString()}`}
+                />
+                <Metric
+                  label="Penalty Avoided (est.)"
+                  value={`$${analysis.plan.estimatedPenaltyAvoidedUsd.toLocaleString()}`}
+                />
+                <Metric label="Projected Risk Band" value={analysis.plan.projectedRiskBand} />
+              </div>
+
               <ul>
                 {analysis.plan.actions.map((action, idx) => (
                   <li key={idx}>{action}</li>
                 ))}
               </ul>
+
+              {analysis.plan.warning ? <p className="warning">⚠️ {analysis.plan.warning}</p> : null}
+
+              <p className="muted small">
+                Assumptions → Shock: {analysis.assumptions.marketShockPct}% · Target HF: {analysis.assumptions.targetHealthFactor}
+                · Penalty Model: {analysis.assumptions.penaltyModel}
+              </p>
 
               <div className="approval-row">
                 <button type="button" className="secondary" onClick={() => setApproved(false)}>
@@ -136,9 +195,7 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="footer">
-        Built for Mistral AI Worldwide Hackathon 2026 · Primary track: Agent Skills
-      </footer>
+      <footer className="footer">Built for Mistral AI Worldwide Hackathon 2026 · Primary track: Agent Skills</footer>
     </main>
   );
 }

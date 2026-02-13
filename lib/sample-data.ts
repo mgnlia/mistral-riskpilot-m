@@ -18,5 +18,11 @@ export const samplePositions: PositionInput[] = [
     collateralUsd: 5100,
     debtUsd: 4300,
     liquidationThreshold: 0.78
+  },
+  {
+    protocol: "Aave",
+    collateralUsd: 12300,
+    debtUsd: 9500,
+    liquidationThreshold: 0.81
   }
 ];

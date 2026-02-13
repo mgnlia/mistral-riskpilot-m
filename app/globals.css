@@ -90,6 +90,10 @@ body {
   margin: 14px 0;
 }
 
+.plan-metrics {
+  margin-top: 10px;
+}
+
 .metric {
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -102,6 +106,29 @@ body {
   color: var(--muted);
   display: block;
   margin-bottom: 4px;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0 14px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.field input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0f1530;
+  color: var(--text);
+  padding: 9px 10px;
 }
 
 button.primary,
@@ -138,8 +165,16 @@ button.secondary {
   color: #ff7d7d;
 }
 
+.warning {
+  color: #f3c678;
+}
+
 .muted {
   color: var(--muted);
+}
+
+.small {
+  font-size: 0.82rem;
 }
 
 .approved {
