@@ -59,11 +59,16 @@ npm run verify:deploy -- https://mistral-riskpilot-m.vercel.app
 ```
 
 ## Demo + Submission Artifacts
+- Submission index: `SUBMISSION.md`
 - Demo script (2–3 min): `docs/DEMO_SCRIPT.md`
 - Explicit MVP checkpoint: `docs/MVP_STATUS_CHECKPOINT.md`
 - Submission checklist matrix: `docs/SUBMISSION_CHECKLIST_MATRIX.md`
 - Submission artifact tracker: `docs/SUBMISSION_ARTIFACT_STATUS.md`
 - Submission writeup draft: `docs/SUBMISSION_WRITEUP_DRAFT.md`
+- Claim-to-proof mapping: `docs/CLAIM_TO_PROOF_MAPPING.md`
+- Fallback narrative: `docs/FALLBACK_NARRATIVE.md`
+- Adversarial QA report: `docs/ADVERSARIAL_QA_REPORT.md`
+- Acceptance gate: `docs/ACCEPTANCE_GATE.md`
 - Deploy verification script: `scripts/verify-deploy.mjs`
 - Post-deploy verification checklist: `docs/POST_DEPLOY_VERIFICATION_CHECKLIST.md`
 
@@ -77,5 +82,7 @@ npm run verify:deploy -- https://mistral-riskpilot-m.vercel.app
 ## License
 MIT (`LICENSE`)
 
-## Notes on pre-existing assets
-This project reuses concepts from existing liquidation-monitoring and agent orchestration work. New hackathon implementation is being executed in this dedicated repo.
+## Provenance / Pre-existing Work Clarification
+- This repository is the dedicated hackathon implementation workspace for RiskPilot-M.
+- Prior domain knowledge informed design direction only.
+- Submission artifacts and implementation in this repo are intended as event-specific deliverables, with any external reuse requiring explicit disclosure.
