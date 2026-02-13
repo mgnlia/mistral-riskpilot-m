@@ -1,5 +1,7 @@
 import type { MitigationPrimaryAction, MitigationTargets, PositionAssessment, PositionInput, RiskBand } from "./types";
 
+const MAX_USD_INPUT = 1_000_000_000;
+
 const round2 = (value: number): number => Number(value.toFixed(2));
 
 const clamp = (value: number, min: number, max: number): number => {
@@ -9,7 +11,13 @@ const clamp = (value: number, min: number, max: number): number => {
 
 const normalizeUsd = (value: number): number => {
   if (!Number.isFinite(value) || value < 0) return 0;
-  return round2(value);
+  return round2(clamp(value, 0, MAX_USD_INPUT));
+};
+
+const normalizeProtocol = (value: string): string => {
+  const normalized = value?.trim();
+  if (!normalized) return "Unknown";
+  return normalized.slice(0, 64);
 };
 
 export function normalizeTargetHealthFactor(value: number): number {
@@ -22,7 +30,7 @@ export function normalizeMarketShockPct(value: number): number {
 
 export function validatePositionInput(input: PositionInput): PositionInput {
   return {
-    protocol: input.protocol?.trim() || "Unknown",
+    protocol: normalizeProtocol(input.protocol),
     collateralUsd: normalizeUsd(input.collateralUsd),
     debtUsd: normalizeUsd(input.debtUsd),
     liquidationThreshold:
