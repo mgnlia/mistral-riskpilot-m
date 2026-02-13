@@ -21,8 +21,8 @@ This file is the single source of truth for final submission packaging.
 
 ## 3) Provenance / Eligibility Statement
 
-All submission code and artifacts in this repository were produced during the hackathon window for this event.  
-No prior project deliverable was reused.
+All code in this repository was written during the hackathon build window.  
+No prior codebase was reused.
 
 ## 4) Deployment Verification
 
