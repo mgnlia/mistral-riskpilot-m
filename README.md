@@ -47,12 +47,15 @@ If CLI is unavailable in your runtime, use:
 - `docs/VERCEL_DEPLOY_RUNBOOK.md`
 - `docs/OPERATOR_DEPLOY_NOW.md`
 - `docs/HUMAN_OP_DEPLOY_REQUEST.md`
+- `docs/OPERATOR_HANDOFF_COPYPASTE.md`
 
 ## Demo + Submission Artifacts
 - Demo script (2–3 min): `docs/DEMO_SCRIPT.md`
 - Explicit MVP checkpoint: `docs/MVP_STATUS_CHECKPOINT.md`
+- Submission checklist matrix: `docs/SUBMISSION_CHECKLIST_MATRIX.md`
 - Submission artifact tracker: `docs/SUBMISSION_ARTIFACT_STATUS.md`
 - Submission writeup draft: `docs/SUBMISSION_WRITEUP_DRAFT.md`
+- Deploy verification script: `scripts/verify-deploy.mjs`
 
 ## Hackathon Deliverables Checklist
 - [x] Implementation repo created
