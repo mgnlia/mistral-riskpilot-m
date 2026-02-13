@@ -16,10 +16,12 @@ Build a submission-grade MVP that demonstrates:
 - **Frontend:** Next.js dashboard deployed on Vercel
 - **Risk Engine:** deterministic health-factor/risk-band scoring from protocol position inputs
 - **AI Layer:** Mistral-powered explanation and action-plan generation via API route
-- **Fallback mode:** mock model output when API key unavailable for demo resilience
+- **Fallback mode:** deterministic mock output when API key/upstream is unavailable (demo resilience)
 
-Architecture artifact:
-- Mermaid source + submission notes: `docs/ARCHITECTURE_DIAGRAM.md`
+Architecture artifacts:
+- `docs/ARCHITECTURE_DIAGRAM.md`
+- `docs/architecture.mmd`
+- `docs/EXPORT_ARCHITECTURE.md`
 
 ## Quick Start
 ```bash
@@ -44,18 +46,23 @@ vercel --prod
 If CLI is unavailable in your runtime, use:
 - `docs/VERCEL_DEPLOY_RUNBOOK.md`
 - `docs/OPERATOR_DEPLOY_NOW.md`
+- `docs/HUMAN_OP_DEPLOY_REQUEST.md`
 
 ## Demo + Submission Artifacts
 - Demo script (2–3 min): `docs/DEMO_SCRIPT.md`
-- Architecture diagram source: `docs/ARCHITECTURE_DIAGRAM.md`
+- Explicit MVP checkpoint: `docs/MVP_STATUS_CHECKPOINT.md`
 - Submission artifact tracker: `docs/SUBMISSION_ARTIFACT_STATUS.md`
+- Submission writeup draft: `docs/SUBMISSION_WRITEUP_DRAFT.md`
 
 ## Hackathon Deliverables Checklist
 - [x] Implementation repo created
 - [x] Baseline execution plan committed
-- [ ] Deployable frontend shipped
+- [x] MVP feature flow implemented (analysis -> mitigation -> approval)
 - [ ] Production Vercel URL published
-- [ ] Demo video + submission artifacts finalized
+- [ ] Demo video + final submission package finalized
+
+## License
+MIT (`LICENSE`)
 
 ## Notes on pre-existing assets
 This project reuses concepts from existing liquidation-monitoring and agent orchestration work. New hackathon implementation is being executed in this dedicated repo.

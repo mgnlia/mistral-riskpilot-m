@@ -8,12 +8,12 @@ Task: `lL5ZwDIS-lRhbP1SDoJLO`
 | Artifact | Status | Evidence / Path | Notes |
 |---|---|---|---|
 | Demo script (2–3 min) | ✅ Done | `docs/DEMO_SCRIPT.md` | Judge flow scripted with timestamps |
-| Architecture diagram source | ✅ Done | `docs/ARCHITECTURE_DIAGRAM.md` | Mermaid complete |
-| Architecture PNG/SVG export | 🟡 In progress | (pending export) | Needed for final upload |
+| Architecture diagram source | ✅ Done | `docs/ARCHITECTURE_DIAGRAM.md`, `docs/architecture.mmd` | Mermaid complete |
+| Architecture PNG/SVG export | 🟡 Ready-to-export | `docs/EXPORT_ARCHITECTURE.md` | Operator command ready |
 | Screenshots (3–5) | 🟡 Pending | (to capture) | Use high-risk scenario + approval state |
-| Submission writeup (200–400 words) | 🟡 Pending | (to draft) | Include Mistral stack + measurable outcome |
+| Submission writeup (200–400 words) | ✅ Draft done | `docs/SUBMISSION_WRITEUP_DRAFT.md` | Needs final polish only |
 | Demo video (2–3 min, unlisted) | 🟡 Pending | (to record) | Script ready |
-| Live Vercel URL | 🔴 Blocked | `docs/VERCEL_DEPLOY_RUNBOOK.md` | Blocked by missing `vercel` CLI in runtime |
+| Live Vercel URL | 🔴 Blocked | `docs/HUMAN_OP_DEPLOY_REQUEST.md` | Blocked by missing `vercel` CLI in runtime |
 
 ## Engineering MVP Readiness
 - Core product flow: **✅ Feature-complete**
