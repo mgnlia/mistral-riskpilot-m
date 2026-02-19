@@ -195,7 +195,9 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="footer">Built for Mistral AI Worldwide Hackathon 2026 · Primary track: Agent Skills</footer>
+      <footer className="footer">
+        Built for Mistral AI Worldwide Hackathon 2026 · Track ID: lliT8PLq71y0MYPbWBkCI · deploy-marker: raw-githack-replacement-v1
+      </footer>
     </main>
   );
 }
