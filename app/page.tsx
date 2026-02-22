@@ -195,7 +195,9 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="footer">Built for Mistral AI Worldwide Hackathon 2026 · Primary track: Agent Skills</footer>
+      <footer className="footer">
+        Built for Mistral AI Worldwide Hackathon 2026 · Primary track: Agent Skills · deploy-marker: scout-redeploy-2026-02-22t1530z
+      </footer>
     </main>
   );
 }
