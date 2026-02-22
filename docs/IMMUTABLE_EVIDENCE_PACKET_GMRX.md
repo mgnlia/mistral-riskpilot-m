@@ -23,7 +23,7 @@ Resolved IDs (stable across immutable sources):
 - Ready-to-use env keys for operator execution:
   - `VERCEL_ORG_ID=team_Ay97TQ9ZiGtXdvkWdb8R9iAO`
   - `VERCEL_PROJECT_ID=prj_fKvDeUga0lB4C18d8pxYU7YuA6ew`
-  - `VERCEL_TOKEN=<operator-token>`
+  - `VERCEL_TOKEN=<REDACTED_OPERATOR_TOKEN>`
 
 ## Verified production URL + deploy UTC
 - Verified production URL: https://mistral-riskpilot-m.vercel.app
