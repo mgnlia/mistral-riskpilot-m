@@ -35,11 +35,11 @@ From `.vercel/project.json` (SHA-pinned):
 ## Immutable Evidence Links
 
 1. Packet commit (immutable):  
-   https://github.com/mgnlia/mistral-riskpilot-m/commit/COMMIT_SHA_PLACEHOLDER
+   https://github.com/mgnlia/mistral-riskpilot-m/commit/83213abafb022f9b8d111484f00924ddd6c7d285
 2. Packet file, SHA-pinned blob:  
-   https://github.com/mgnlia/mistral-riskpilot-m/blob/COMMIT_SHA_PLACEHOLDER/docs/ADVERSARY_REENTRY_PACKET_2026-02-22_v2.md
+   https://github.com/mgnlia/mistral-riskpilot-m/blob/83213abafb022f9b8d111484f00924ddd6c7d285/docs/ADVERSARY_REENTRY_PACKET_2026-02-22_v2.md
 3. Packet file, SHA-pinned raw:  
-   https://raw.githubusercontent.com/mgnlia/mistral-riskpilot-m/COMMIT_SHA_PLACEHOLDER/docs/ADVERSARY_REENTRY_PACKET_2026-02-22_v2.md
+   https://raw.githubusercontent.com/mgnlia/mistral-riskpilot-m/83213abafb022f9b8d111484f00924ddd6c7d285/docs/ADVERSARY_REENTRY_PACKET_2026-02-22_v2.md
 4. Production URL:  
    https://mistral-riskpilot-m.vercel.app
 5. Production health endpoint:  
@@ -52,5 +52,3 @@ From `.vercel/project.json` (SHA-pinned):
    https://github.com/mgnlia/mistral-riskpilot-m/blob/efddd05f4963d899925da9eca302e414da594432/.vercel/project.json
 9. Commit API record for SHA metadata (immutable API):  
    https://api.github.com/repos/mgnlia/mistral-riskpilot-m/commits/efddd05f4963d899925da9eca302e414da594432
-
-> After this file commit is created, replace `COMMIT_SHA_PLACEHOLDER` with the actual packet commit SHA in task `githubUrls`.
