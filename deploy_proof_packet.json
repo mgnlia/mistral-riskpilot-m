@@ -1,0 +1,48 @@
+{
+  "project": "mistral-riskpilot-m",
+  "projectId": "prj_fKvDeUga0lB4C18d8pxYU7YuA6ew",
+  "orgId": "team_Ay97TQ9ZiGtXdvkWdb8R9iAO",
+  "deploymentId": "dpl_2DoMKwd9PTw4iF4cN12R2ihWsQXC",
+  "deploymentUrl": "https://mistral-riskpilot-474fnp4sp-mgnlias-projects.vercel.app",
+  "canonicalUrl": "https://mistral-riskpilot-m.vercel.app",
+  "inspectorUrl": "https://vercel.com/mgnlias-projects/mistral-riskpilot-m/2DoMKwd9PTw4iF4cN12R2ihWsQXC",
+  "deployStartUtc": "2026-02-22T13:30:51Z",
+  "deployFinishUtc": "2026-02-22T13:31:44Z",
+  "finalState": "READY",
+  "stateTrace": [
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "BUILDING",
+    "READY"
+  ],
+  "deployMatchedCommitSha": "271e39c0dd12e2f2b486d82a06c3cd85b6275874",
+  "envConfigNotes": {
+    "MISTRAL_API_KEY": "Required for live Mistral inference in /api/analyze. Without it, deterministic fallback mode is used.",
+    "MISTRAL_MODEL": "Optional; defaults to mistral-small-latest."
+  },
+  "verification": {
+    "canonical": {
+      "/": 404,
+      "/api/health": 200
+    },
+    "deploymentUrl": {
+      "/": 401,
+      "/api/health": 401
+    }
+  }
+}

@@ -3,10 +3,11 @@
 /**
  * Deploy verification script for RiskPilot-M.
  * Usage:
- *   node scripts/verify-deploy.mjs https://mistral-riskpilot-m.vercel.app
+ *   node scripts/verify-deploy.mjs https://mistral-riskpilot-m.vercel.app [expectedSha]
  */
 
 const baseUrl = (process.argv[2] || process.env.BASE_URL || "https://mistral-riskpilot-m.vercel.app").replace(/\/$/, "");
+const expectedSha = process.argv[3] || process.env.EXPECTED_SHA || null;
 
 function fail(message, detail) {
   console.error(`❌ ${message}`);
@@ -112,12 +113,39 @@ async function checkAnalyzeApi() {
   };
 }
 
+async function checkDeployEvidence() {
+  const { response, text, data } = await getJson(`${baseUrl}/api/deploy-evidence`);
+
+  if (!response.ok) {
+    fail(`GET ${baseUrl}/api/deploy-evidence failed with status ${response.status}`, text.slice(0, 300));
+  }
+
+  const build = data?.build;
+  if (!data || data.service !== "riskpilot-m" || !build?.buildUtc || !build?.gitCommitSha) {
+    fail("/api/deploy-evidence response invalid", JSON.stringify(data ?? text, null, 2));
+  }
+
+  if (expectedSha && build.gitCommitSha !== expectedSha) {
+    fail(
+      `/api/deploy-evidence gitCommitSha mismatch (expected ${expectedSha}, got ${build.gitCommitSha})`,
+      JSON.stringify(data, null, 2)
+    );
+  }
+
+  pass(`/api/deploy-evidence reachable (${response.status})`);
+  pass(`build.gitCommitSha=${build.gitCommitSha}`);
+  pass(`build.buildUtc=${build.buildUtc}`);
+
+  return data;
+}
+
 (async () => {
   try {
     console.log(`Running deploy checks for: ${baseUrl}`);
     await checkHome();
     const health = await checkHealthApi();
     const analysis = await checkAnalyzeApi();
+    const deployEvidence = await checkDeployEvidence();
 
     console.log("\nSummary:");
     console.log(
@@ -126,6 +154,8 @@ async function checkAnalyzeApi() {
           baseUrl,
           model: health.model,
           mistralConfigured: health.mistralConfigured,
+          expectedSha,
+          deployEvidence,
           ...analysis
         },
         null,
