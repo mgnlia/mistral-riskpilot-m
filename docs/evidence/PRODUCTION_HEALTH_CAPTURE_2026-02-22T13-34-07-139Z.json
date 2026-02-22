@@ -1,0 +1,12 @@
+{
+  "taskId": "d6A9iKqsKYnhxKg-JvBnY",
+  "source": "https://mistral-riskpilot-m.vercel.app/api/health",
+  "capturedAtUtc": "2026-02-22T14:06:00Z",
+  "observedResponse": {
+    "ok": true,
+    "service": "riskpilot-m",
+    "timestamp": "2026-02-22T13:34:07.139Z",
+    "model": "mistral-small-latest",
+    "mistralConfigured": false
+  }
+}
